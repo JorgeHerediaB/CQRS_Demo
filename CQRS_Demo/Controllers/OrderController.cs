@@ -4,6 +4,9 @@ using CQRS_Demo.Commands.UpdateOrder;
 using CQRS_Demo.Commands.UpdateProduct;
 using CQRS_Demo.Dtos;
 using CQRS_Demo.Entities.Concretes;
+using CQRS_Demo.Queries.DTOs;
+using CQRS_Demo.Queries.GetAllOrders;
+using CQRS_Demo.Queries.GetOrderById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +32,20 @@ namespace CQRS_Demo.Controllers
                 ProductsIds = productIds
             });
             return new BaseResponse<Order?>(response);
+        }
+
+        [HttpGet]
+        public async Task<BaseResponse<List<OrderListDto>>> GetAllOrdersAsync()
+        {
+            var response = await mediator.Send(new GetAllOrdersQuery());
+            return new BaseResponse<List<OrderListDto>>(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<BaseResponse<OrderDto?>> GetOrderByIdAsync(Guid id)
+        {
+            var response = await mediator.Send(new GetOrderByIdQuery { Id = id });
+            return new BaseResponse<OrderDto?>(response);
         }
     }
 }
