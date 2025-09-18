@@ -21,6 +21,7 @@ public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, List<Order
     {
         var orders = await _context.Orders
             .Include(o => o.Products)
+            .ThenInclude(p => p.Product)
             .ToListAsync(cancellationToken);
 
         return _mapper.Map<List<OrderListDto>>(orders);

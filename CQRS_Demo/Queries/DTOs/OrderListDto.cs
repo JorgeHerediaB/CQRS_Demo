@@ -6,4 +6,5 @@ public class OrderListDto
     public string Currency { get; set; } = "bob";
     public int ProductsCount { get; set; }
     public int TotalQuantity { get; set; }
+    public decimal Total {get; set;}
 }

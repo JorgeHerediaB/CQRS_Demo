@@ -21,6 +21,7 @@ public class GetOrderByIdHandler : IRequestHandler<GetOrderByIdQuery, OrderDto?>
     {
         var order = await _context.Orders
             .Include(o => o.Products)
+            .ThenInclude(p => p.Product)
             .FirstOrDefaultAsync(o => o.Id == request.Id, cancellationToken);
 
         if (order == null)

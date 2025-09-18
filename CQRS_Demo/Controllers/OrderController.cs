@@ -1,6 +1,6 @@
 using CQRS_Demo.Commands.CreateNewOrder;
 using CQRS_Demo.Commands.UpdateOrder;
-using CQRS_Demo.Entities.Concretes;
+using CQRS_Demo.Dtos;
 using CQRS_Demo.Queries.DTOs;
 using CQRS_Demo.Queries.GetAllOrders;
 using CQRS_Demo.Queries.GetOrderById;
@@ -14,21 +14,21 @@ namespace CQRS_Demo.Controllers;
 public class OrderController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
-    public async Task<BaseResponse<Order?>> PostOrderAsync(CreateNewOrderCommand command)
+    public async Task<BaseResponse<OrderDto?>> PostOrderAsync(CreateNewOrderCommand command)
     {
         var response = await mediator.Send(command);
-        return new BaseResponse<Order?>(response);
+        return new BaseResponse<OrderDto?>(response);
     }
 
     [HttpPut("{id}")]
-    public async Task<BaseResponse<Order?>> PutOrderAsync(Guid id, IReadOnlyList<Guid> productIds)
+    public async Task<BaseResponse<OrderDto?>> PutOrderAsync(Guid id, IReadOnlyList<OrderListItemDto> products)
     {
         var response = await mediator.Send(new UpdateOrderCommand
         {
             Id = id,
-            ProductsIds = productIds
+            Products = products
         });
-        return new BaseResponse<Order?>(response);
+        return new BaseResponse<OrderDto?>(response);
     }
 
     [HttpGet]

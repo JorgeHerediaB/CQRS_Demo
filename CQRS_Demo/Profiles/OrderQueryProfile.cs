@@ -1,4 +1,5 @@
 using AutoMapper;
+using CQRS_Demo.Dtos;
 using CQRS_Demo.Entities.Concretes;
 using CQRS_Demo.Queries.DTOs;
 
@@ -10,11 +11,13 @@ public class OrderQueryProfile : Profile
     {
         CreateMap<Order, OrderDto>()
             .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
-
         CreateMap<Order, OrderListDto>()
+            .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Products.Sum(item => item.Product.Price * item.Quantity)))
             .ForMember(dest => dest.ProductsCount, opt => opt.MapFrom(src => src.Products.Count))
             .ForMember(dest => dest.TotalQuantity, opt => opt.MapFrom(src => src.Products.Sum(p => p.Quantity)));
 
         CreateMap<Product, ProductQueryDto>();
+        CreateMap<OrderListItem, OrderListItemDto>();
+        CreateMap<OrderListItem, ViewOrderListItemDto>();
     }
 }
