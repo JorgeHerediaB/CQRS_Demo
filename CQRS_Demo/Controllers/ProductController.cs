@@ -3,6 +3,9 @@ using CQRS_Demo.Commands.UpdateProduct;
 using CQRS_Demo.Context;
 using CQRS_Demo.Dtos;
 using CQRS_Demo.Entities.Concretes;
+using CQRS_Demo.Queries.DTOs;
+using CQRS_Demo.Queries.GetAllProducts;
+using CQRS_Demo.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +34,17 @@ namespace CQRS_Demo.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseResponse<IList<Product>>> GetAllProduct()
+        public async Task<BaseResponse<List<ProductQueryDto>>> GetAllProductAsync()
         {
-            // TODO: Override with queries logic
-            var products = context.Products.ToList();
-            return new BaseResponse<IList<Product>>(products);
+            var response = await mediator.Send(new GetAllProductsQuery());
+            return new BaseResponse<List<ProductQueryDto>>(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<BaseResponse<ProductQueryDto?>> GetProductByIdAsync(Guid id)
+        {
+            var response = await mediator.Send(new GetProductByIdQuery { Id = id });
+            return new BaseResponse<ProductQueryDto?>(response);
         }
     }
 }
