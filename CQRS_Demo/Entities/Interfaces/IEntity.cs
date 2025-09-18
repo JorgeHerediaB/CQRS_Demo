@@ -1,7 +1,6 @@
-﻿namespace CQRS_Demo.Entities.Interfaces
+﻿namespace CQRS_Demo.Entities.Interfaces;
+
+public class IEntity
 {
-    public class IEntity
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

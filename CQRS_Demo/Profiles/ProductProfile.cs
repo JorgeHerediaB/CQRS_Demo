@@ -2,12 +2,11 @@
 using CQRS_Demo.Dtos;
 using CQRS_Demo.Entities.Concretes;
 
-namespace CQRS_Demo.Profiles
+namespace CQRS_Demo.Profiles;
+
+public class ProductProfile : Profile
 {
-    public class ProductProfile : Profile
-    {
-        public ProductProfile() {
-            CreateMap<ProductDto, Product>();
-        }
+    public ProductProfile() {
+        CreateMap<ProductDto, Product>();
     }
 }

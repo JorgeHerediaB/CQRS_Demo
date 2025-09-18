@@ -2,11 +2,10 @@
 using CQRS_Demo.Entities.Concretes;
 using MediatR;
 
-namespace CQRS_Demo.Commands.UpdateProduct
+namespace CQRS_Demo.Commands.UpdateProduct;
+
+public class UpdateProductCommand : IRequest<Product?>
 {
-    public class UpdateProductCommand : IRequest<Product?>
-    {
-        public Guid Id { get; set; }
-        public ProductDto ProductDto { get; set; }
-    }
+    public Guid Id { get; set; }
+    public ProductDto ProductDto { get; set; }
 }

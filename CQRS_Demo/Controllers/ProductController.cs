@@ -1,6 +1,5 @@
-using CQRS_Demo.Commands;
+using CQRS_Demo.Commands.CreateNewProduct;
 using CQRS_Demo.Commands.UpdateProduct;
-using CQRS_Demo.Context;
 using CQRS_Demo.Dtos;
 using CQRS_Demo.Entities.Concretes;
 using CQRS_Demo.Queries.DTOs;
@@ -13,7 +12,7 @@ namespace CQRS_Demo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController(IMediator mediator, AppDbContext context) : ControllerBase
+    public class ProductController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
         public async Task<BaseResponse<Product?>> PostProductAsync(CreateNewProductCommand command)

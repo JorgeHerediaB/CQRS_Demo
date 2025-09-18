@@ -1,20 +1,17 @@
-using CQRS_Demo.Entities.Interfaces;
+namespace CQRS_Demo;
 
-namespace CQRS_Demo
+public class BaseResponse<TEntity>
 {
-    public class BaseResponse<TEntity>
+    public TEntity Data { get; set; }
+    public int ResponseCode { get; set; }
+
+    public BaseResponse(TEntity data)
     {
-        public TEntity Data { get; set; }
-        public int ResponseCode { get; set; }
+        this.Data = data;
 
-        public BaseResponse(TEntity data)
+        if (data is null)
         {
-            this.Data = data;
-
-            if (data is null)
-            {
-                ResponseCode = 500;
-            }
+            ResponseCode = 500;
         }
     }
 }
